@@ -5,14 +5,28 @@ function newAccount(name, intialBalance) {
   function showBalance() {
     console.log(`Hello ${name}, your balance is : $${balance}`);
   }
-  return showBalance;
+  function deposit(amount) {
+    balance += amount;
+    showBalance();
+  }
+  function withdraw(amount) {
+    if (amount > balance) {
+      console.log(`insufficent funds ${name}`);
+      return;
+    }
+    balance -= amount;
+    showBalance();
+  }
+  return { showBalance: showBalance, deposit, withdraw };
 }
 
 //instances
-newAccount('steve', 77)();
-
 const john = newAccount('john', 300);
 const tim = newAccount('tim', 1400);
 
-john();
-tim();
+john.showBalance();
+john.deposit(100);
+john.withdraw(500);
+tim.showBalance();
+
+console.log(john);
